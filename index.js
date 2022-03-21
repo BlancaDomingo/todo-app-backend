@@ -6,7 +6,7 @@
 
 // npm install mongoose
 // npm install dotenv
-// npm install @faker-js/faker
-// npm install validatorjs
+
+
 // npm install bcrypt
 // npm install jsonwebtoken
