@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { addUser, getAllUsers, getUser, updateUser, deleteUser, registerUser, loginUser } from '../../src/controller/users.controller.js';
+import { getAllUsers, getUser, updateUser, deleteUser, registerUser, registerAdmin, loginUser } from '../../src/controller/users.controller.js';
 import { permission } from '../middleware/permission.middleware.js'
 
 
@@ -16,13 +16,16 @@ usersRouter.use((req, res, next) => {
 usersRouter.route('/')
     //     .get(permission({ loggedIn: true, role: 'admin'}), getAllUsers)
     .get(getAllUsers)
-    .post(addUser);
+   // .post(addUser);
 
 usersRouter.route('/login')
     .post(loginUser)
 
 usersRouter.route('/register')
     .post(registerUser)
+
+usersRouter.route('/registerAdmin')
+    .post(registerAdmin)    
 
 usersRouter.route('/:id')
     .get(permission(), getUser)
