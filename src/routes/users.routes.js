@@ -1,0 +1,34 @@
+import { Router } from 'express';
+import { addUser, getAllUsers, getUser, updateUser, deleteUser, registerUser, loginUser } from '../../src/controller/users.controller.js';
+import { permission } from '../middleware/permission.middleware.js'
+
+
+const usersRouter = new Router();
+
+
+usersRouter.use((req, res, next) => {
+
+    console.log('Logging: ' + req.url + ' time ' + Date.now());
+
+    next();
+})
+
+usersRouter.route('/')
+    //     .get(permission({ loggedIn: true, role: 'admin'}), getAllUsers)
+    .get(getAllUsers)
+    .post(addUser);
+
+usersRouter.route('/login')
+    .post(loginUser)
+
+usersRouter.route('/register')
+    .post(registerUser)
+
+usersRouter.route('/:id')
+    .get(permission(), getUser)
+    .put(permission(), updateUser)
+    .delete(permission(), deleteUser)
+
+
+
+export default usersRouter;
