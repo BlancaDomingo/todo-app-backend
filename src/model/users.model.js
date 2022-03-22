@@ -1,5 +1,13 @@
 import mongoose from "mongoose";
 
+const todosSchema = new mongoose.Schema({
+    text: String,
+    remember: Boolean,
+    repeat: Boolean,
+    date: Date,
+    done: Boolean
+})
+
 const usersSchema = new mongoose.Schema({
  
   firstName: {
@@ -18,10 +26,11 @@ const usersSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  role: {
+   role: {
     type: String,
     required: true
-  }
+  },
+  todos: [todosSchema]
 } , 
   {
   timestamps: true,

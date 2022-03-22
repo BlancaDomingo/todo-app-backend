@@ -27,14 +27,13 @@ export const updateUser = async (req, res) => {
 
     try {
         const id = req.params.id;
-        console.log(req.body);
-        const userUpdated = await User.findByIdAndUpdate(id, req.body, {
-            new: true,
-            runValidators: true,
-            context: 'query'
-        });
+        console.log(typeof req.body);
+
+        const userUpdated = await User.findById(id);
+        await userUpdated.todos.push(req.body);
+        const save = await userUpdated.save();
         res.status(200)
-        res.json(userUpdated);
+        res.json(save);
 
     } catch (error) {
         console.log(error);
