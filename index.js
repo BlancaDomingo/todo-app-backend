@@ -16,7 +16,7 @@ import 'dotenv/config';
 import { auth } from './src/middleware/auth.middleware.js';
 
 import usersRoutes from './src/routes/users.routes.js';
-//import todosRoutes from './src/routes/todos.routes.js';
+import todosRoutes from './src/routes/todos.routes.js';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -40,7 +40,7 @@ app.use(express.json());
 
 app.use(auth());  // prüft token
 
-//app.use('/todos',todosRoutes);
+app.use('/todos',todosRoutes);
 app.use('/users', usersRoutes);
 
 
