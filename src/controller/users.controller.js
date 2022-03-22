@@ -65,14 +65,14 @@ export const registerUser = async (req, res) => {
     ) {
         res
             .status(400)
-            .send(
-                'Password should contain number, uppercase, lowercase, special character.'
-            );
+            .json({
+                message:'Password should contain number, uppercase, lowercase, special character.'
+            });
         return;
     }
     const checkUser = await User.findOne({ email: email });
     if (checkUser) {
-        res.status(400).send('User already exists');
+        res.status(400).json({message: 'User already exists'});
         return;
     }
     password = await bcrypt.hash(password, 10);
@@ -80,7 +80,7 @@ export const registerUser = async (req, res) => {
         const role = "user";
         await User.create({ email, password, firstName, lastName, role });
 
-        res.status(201).send('created');
+        res.status(201).send('user created');
     } catch (error) {
         console.error(error);
         res.status(500).send(error);
@@ -96,14 +96,14 @@ export const registerAdmin = async (req, res) => {
     ) {
         res
             .status(400)
-            .send(
-                'Password should contain number, uppercase, lowercase, special character.'
-            );
+            .json({
+                message:'Password should contain number, uppercase, lowercase, special character.'
+            });
         return;
     }
     const checkUser = await User.findOne({ email: email });
     if (checkUser) {
-        res.status(400).send('User already exists');
+        res.status(400).json({message: 'User already exists'});
         return;
     }
     password = await bcrypt.hash(password, 10);
@@ -134,7 +134,8 @@ export const loginUser = async (req, res) => {
 
             const tokenData = {
                 userId: user._id,
-                email: user.email
+                email: user.email,
+               
             }
            
             const token = jwt.sign(tokenData, process.env.JWT_KEY)
@@ -143,16 +144,18 @@ export const loginUser = async (req, res) => {
                 message: 'success',
                 data: {
                     user: user,
-                    token: token
-                }
+                    token: token,
+                      }
             });
         } else {
             return res.status(402).json({
-                message: 'Wrong Password'
+                message: 'Falsches Passwort!'
             })
 
         }
     } else {
-        return res.status(400).send('Account nicht gefunden')
+        return res.status(400).json({
+            message: 'Konto nicht gefunden!'
+        })
     }
 } 

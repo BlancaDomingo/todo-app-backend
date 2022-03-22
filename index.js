@@ -13,6 +13,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { connectMongoose } from './database-mongoose.js';
 import 'dotenv/config';
+import { auth } from './src/middleware/auth.middleware.js';
 
 import usersRoutes from './src/routes/users.routes.js';
 //import todosRoutes from './src/routes/todos.routes.js';
@@ -37,7 +38,7 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
-// app.use(auth());  // prüft token
+app.use(auth());  // prüft token
 
 //app.use('/todos',todosRoutes);
 app.use('/users', usersRoutes);

@@ -15,7 +15,7 @@ usersRouter.use((req, res, next) => {
 
 usersRouter.route('/')
     //     .get(permission({ loggedIn: true, role: 'admin'}), getAllUsers)
-    .get(getAllUsers)
+    .get(permission(), getAllUsers)
    // .post(addUser);
 
 usersRouter.route('/login')
@@ -25,7 +25,7 @@ usersRouter.route('/register')
     .post(registerUser)
 
 usersRouter.route('/registerAdmin')
-    .post(registerAdmin)    
+    .post(permission(), registerAdmin)    
 
 usersRouter.route('/:id')
     .get(permission(), getUser)
