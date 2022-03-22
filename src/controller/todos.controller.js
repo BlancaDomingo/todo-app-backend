@@ -16,6 +16,30 @@ export const getAllTodos = async (req, res) => {
 
 export const addTodo = async (req, res) => {
 
+    const { id } = req.params;
+
+    const body = req.body;
+    const text = body.text;
+    const remember = body.remember;
+    const repeat = body.email;
+    const date = body.date;
+    const done = false;
+
+    const data = {text, remember, repeat, date, done};
+
+
+    try {
+        
+        const userUpdated = await User.findById(id);
+        await userUpdated.todos.push(data);
+        const save = await userUpdated.save();
+        res.status(200)
+        res.json(save);
+
+    } catch (error) {
+        console.log(error);
+    }
+
    
 }
 
