@@ -44,6 +44,30 @@ export const addTodo = async (req, res) => {
 }
 
 export const updateTodo = async (req, res) => {
+    const { idUser, idTodo } = req.params;
+
+    User.findById(idUser, function(err, result) {
+        if (!err) {
+          if (!result){
+            res.status(404).send('User was not found');
+          }
+          else{
+            result.todos.id(idTodo).done = req.body.done;
+           
+            result.markModified('todos'); 
+            result.save(function(saveerr, saveresult) {
+              if (!saveerr) {
+                res.status(200).send(saveresult);
+              } else {
+                res.status(400).send(saveerr.message);
+              }
+            });
+          }
+        } else {
+          res.status(400).send(err.message);
+        }
+      });
+
 
 }
 

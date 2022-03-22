@@ -19,7 +19,7 @@ todosRouter.route('/:id')
     .post(permission(), addTodo)
   
 
-todosRouter.route('/:id/:idTodo')
+todosRouter.route('/:idUser/:idTodo')
     .put(permission(), updateTodo)
     .delete(permission(), deleteTodo)
 
