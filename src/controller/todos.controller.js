@@ -55,6 +55,7 @@ export const updateTodo = async (req, res) => {
             result.todos.id(idTodo).done = req.body.done;
            
             result.markModified('todos'); 
+            
             result.save(function(saveerr, saveresult) {
               if (!saveerr) {
                 res.status(200).send(saveresult);
