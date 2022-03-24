@@ -34,7 +34,7 @@ export const addTodo = async (req, res) => {
         await userUpdated.todos.push(data);
         const save = await userUpdated.save();
         res.status(200)
-        res.json(save);
+        res.json(save.todos);
 
     } catch (error) {
         console.log(error);

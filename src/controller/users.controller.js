@@ -126,21 +126,31 @@ export const registerUser = async (req, res) => {
     const userCreated = await User.create({ firstName, lastName, email, password, role });
 
     if (userCreated) {
-        const tokenData = {
-            userId: User._id,
-            email: User.email,
+
+
+        const user = await User.findOne({ email: email });
+
+
+        if (user) {
+
+            console.log('User._id', user._id);
+            const tokenData = {
+                userId: user._id,
+                email: user.email,
+
+            }
+
+            const token = jwt.sign(tokenData, process.env.JWT_KEY)
+            console.log('User', user);
+            return res.json({
+                message: 'success',
+                data: {
+                    user: user,
+                    token: token,
+                }
+            });
 
         }
-
-        const token = jwt.sign(tokenData, process.env.JWT_KEY)
-
-        return res.json({
-            message: 'success',
-            data: {
-                user: User,
-                token: token,
-            }
-        });
 
     } else {
         return res.status(500).json({
@@ -149,44 +159,44 @@ export const registerUser = async (req, res) => {
     }
 }
 
-export const loginUser = async (req, res) => {
-    const data = req.body;
-    if (!data.email || !data.password) {
-        return res.status(400).send('Email oder Passwort leer')
-    }
+    export const loginUser = async (req, res) => {
+        const data = req.body;
+        if (!data.email || !data.password) {
+            return res.status(400).send('Email oder Passwort leer')
+        }
 
-    const user = await User.findOne({ email: data.email });
+        const user = await User.findOne({ email: data.email });
 
 
-    if (user) {
-        const isValid = await bcrypt.compare(data.password, user.password);
+        if (user) {
+            const isValid = await bcrypt.compare(data.password, user.password);
 
-        if (isValid) {
+            if (isValid) {
 
-            const tokenData = {
-                userId: user._id,
-                email: user.email,
+                const tokenData = {
+                    userId: user._id,
+                    email: user.email,
+
+                }
+
+                const token = jwt.sign(tokenData, process.env.JWT_KEY)
+
+                return res.json({
+                    message: 'success',
+                    data: {
+                        user: user,
+                        token: token,
+                    }
+                });
+            } else {
+                return res.status(402).json({
+                    message: 'Falsches Passwort!'
+                })
 
             }
-
-            const token = jwt.sign(tokenData, process.env.JWT_KEY)
-
-            return res.json({
-                message: 'success',
-                data: {
-                    user: user,
-                    token: token,
-                }
-            });
         } else {
-            return res.status(402).json({
-                message: 'Falsches Passwort!'
+            return res.status(400).json({
+                message: 'Konto nicht gefunden!'
             })
-
         }
-    } else {
-        return res.status(400).json({
-            message: 'Konto nicht gefunden!'
-        })
-    }
-} 
+    } 
