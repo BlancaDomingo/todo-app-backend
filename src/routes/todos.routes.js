@@ -14,10 +14,10 @@ todosRouter.use((req, res, next) => {
 })
 
 todosRouter.route('/:id')
-   
+
     .get(permission(), getAllTodos)
     .post(permission(), addTodo)
-  
+
 
 todosRouter.route('/:idUser/:idTodo')
     .put(permission(), updateTodo)

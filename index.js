@@ -22,12 +22,12 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 const URI = process.env.URI_DB;
 
-await connectMongoose(URI);  
+await connectMongoose(URI);
 
 
 const corsOptions = {
     //'Access-Control-Allow-Origin': '*',
-    origin: '*',  
+    origin: '*',
     credentials: true,
     optionSuccessStatus: 200,
 }
@@ -40,7 +40,7 @@ app.use(express.json());
 
 app.use(auth());  // prüft token
 
-app.use('/todos',todosRoutes);
+app.use('/todos', todosRoutes);
 app.use('/users', usersRoutes);
 
 
@@ -51,7 +51,7 @@ app.use(function (err, req, res, next) {
         error: err.name,
         error: err.message,
     })
-}); 
+});
 
 
 // Server start
