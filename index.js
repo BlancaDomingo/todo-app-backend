@@ -38,11 +38,12 @@ app.use(cors(corsOptions));
 //app.use(cors)
 app.use(express.json());
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+app.use((req,res, next)=>{
+    res.setHeader('Access-Control-Allow-Origin',"https://todo-list-blanca.herokuapp.com");
+    res.setHeader('Access-Control-Allow-Headers',"*");
+    res.header('Access-Control-Allow-Credentials', true);
     next();
-  });
+});
 
 app.use(auth());  // prüft token
 
