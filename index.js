@@ -25,17 +25,17 @@ const URI = process.env.URI_DB;
 await connectMongoose(URI);
 
 
-/* const corsOptions = {
-    'Access-Control-Allow-Origin': `https://todo-list-blanca.herokuapp.com`,
+const corsOptions = {
+    'Access-Control-Allow-Origin': '*',
     origin: '*',
     credentials: true,
     optionSuccessStatus: 200,
 }
- */
+ 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 
-//app.use(cors(corsOptions));
-app.use(cors)
+app.use(cors(corsOptions));
+//app.use(cors)
 app.use(express.json());
 
 app.use(auth());  // prüft token
