@@ -34,7 +34,7 @@ const corsOptions = {
  
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
 //app.use(cors)
 app.use(express.json());
 
