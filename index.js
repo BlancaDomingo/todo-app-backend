@@ -27,9 +27,9 @@ await connectMongoose(URI);
 
 const corsOptions = {
     'Access-Control-Allow-Origin': '*',
-    origin: '*',
-    credentials: true,
-    optionSuccessStatus: 200,
+    //origin: '*',
+    //credentials: true,
+   // optionSuccessStatus: 200,
 }
  
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
@@ -39,11 +39,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use(auth());  // prüft token
-app.all('/', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next()
-  });
+
 
 app.use('/todos', todosRoutes);
 app.use('/users', usersRoutes);
