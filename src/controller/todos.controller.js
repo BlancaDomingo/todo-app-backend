@@ -6,7 +6,8 @@ export const getAllTodos = async (req, res) => {
   if (!user) {
     return res.status(400).send("nicht gefunden:" + id);
   }
-  res.json(user.todos);
+  res.status(200);
+  res.json({ message: "success", data: user.todos });
 };
 
 export const addTodo = async (req, res) => {
