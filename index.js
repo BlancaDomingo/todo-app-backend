@@ -26,8 +26,8 @@ await connectMongoose(URI);
 
 
 const corsOptions = {
-    'Access-Control-Allow-Origin': `https://todo-list-blanca.herokuapp.com/`,
-    origin: '*',
+    'Access-Control-Allow-Origin': `https://todo-list-blanca.herokuapp.com`,
+    //origin: '*',
     credentials: true,
     optionSuccessStatus: 200,
 }
