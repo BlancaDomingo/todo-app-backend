@@ -1,22 +1,9 @@
-/* export const permission = (role) => {
+import User from "../model/users.model.js";
 
-
-    return (req, res, next) => {
-       
-        if (!req.tokenContent || role !== req.user.role) {
-            return res.status(401).send({
-                message: 'no access',
-            })
-
-        }
-        next();
-    }
-} */
-
-export const permission = () => {
-  return (req, res, next) => {
-    // console.log('req.body.user.role', req.data);
-    if (!req.tokenContent) {
+export const permission = (roleArr) => {
+  return async (req, res, next) => {
+    const user = await User.findById(req.tokenContent.userId);
+    if (!req.tokenContent || !roleArr.includes(user.role) ) {
       return res.status(401).send({
         message: "no access",
       });

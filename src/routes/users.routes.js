@@ -18,18 +18,18 @@ usersRouter.use((req, res, next) => {
   next();
 });
 
-usersRouter.route("/").get(permission(), getAllUsers);
+usersRouter.route("/").get(permission(["admin"]), getAllUsers);
 
 usersRouter.route("/login").post(loginUser);
 
 usersRouter.route("/register").post(registerUser);
 
-usersRouter.route("/registerAdmin").post(permission(), registerAdmin);
+usersRouter.route("/registerAdmin").post(permission(["admin"]), registerAdmin);
 
 usersRouter
   .route("/:id")
-  .get(permission(), getUser)
-  .put(permission(), updateUser)
-  .delete(permission(), deleteUser);
+  .get(permission(["admin"]), getUser)
+  .put(permission(["admin"]), updateUser)
+  .delete(permission(["admin"]), deleteUser);
 
 export default usersRouter;

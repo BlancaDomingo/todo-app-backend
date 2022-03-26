@@ -18,12 +18,12 @@ todosRouter.use((req, res, next) => {
 todosRouter
   .route("/:id")
 
-  .get(permission(), getAllTodos)
-  .post(permission(), addTodo);
+  .get(permission(["admin", "user"]), getAllTodos)
+  .post(permission(["admin", "user"]), addTodo);
 
 todosRouter
   .route("/:idUser/:idTodo")
-  .put(permission(), updateTodo)
-  .delete(permission(), deleteTodo);
+  .put(permission(["admin", "user"]), updateTodo)
+  .delete(permission(["admin", "user"]), deleteTodo);
 
 export default todosRouter;
