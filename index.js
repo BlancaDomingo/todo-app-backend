@@ -7,10 +7,12 @@
 // npm install dotenv
 // npm install bcrypt
 // npm install jsonwebtoken
+// npm install express-session
 
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import session from "express-session";
 import { connectMongoose } from "./database-mongoose.js";
 import "dotenv/config";
 import { auth } from "./src/middleware/auth.middleware.js";
@@ -37,6 +39,8 @@ app.use(
 app.use(cors(corsOptions));
 
 app.use(express.json());
+
+// app.use(session({ secret: "secret-key", resave: false, saveUninitialized: false }));
 
 app.use(auth()); // prüft token
 
