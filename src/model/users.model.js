@@ -4,7 +4,7 @@ const todosSchema = new mongoose.Schema({
   text: String,
   remember: Boolean,
   repeat: Boolean,
-  date: Date,
+  date: String,
   done: Boolean
 })
 

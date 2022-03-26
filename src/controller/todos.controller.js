@@ -16,7 +16,7 @@ export const addTodo = async (req, res) => {
   const body = req.body;
   const text = body.text;
   const remember = body.remember;
-  const repeat = body.email;
+  const repeat = body.repeat;
   const date = body.date;
   const done = false;
 
