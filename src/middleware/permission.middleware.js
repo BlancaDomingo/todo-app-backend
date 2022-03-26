@@ -14,16 +14,13 @@
 } */
 
 export const permission = () => {
-
-
-    return (req, res, next) => {
-        // console.log('req.body.user.role', req.data);
-        if (!req.tokenContent) {
-            return res.status(401).send({
-                message: 'no access',
-            })
-
-        }
-        next();
+  return (req, res, next) => {
+    // console.log('req.body.user.role', req.data);
+    if (!req.tokenContent) {
+      return res.status(401).send({
+        message: "no access",
+      });
     }
-} 
+    next();
+  };
+};

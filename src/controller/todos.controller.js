@@ -67,14 +67,16 @@ export const updateTodo = async (req, res) => {
       if (!result) {
         res.status(404).send("User was not found");
       } else {
-        const toggle = result.todos.id(idTodo).done
+        const toggle = result.todos.id(idTodo).done;
         result.todos.id(idTodo).done = !toggle;
 
         result.markModified("todos");
 
         result.save(function (saveerr, saveresult) {
           if (!saveerr) {
-            res.status(200).json({message: 'success', data: saveresult.todos});
+            res
+              .status(200)
+              .json({ message: "success", data: saveresult.todos });
           } else {
             res.status(400).send(saveerr.message);
           }
@@ -102,7 +104,9 @@ export const deleteTodo = async (req, res) => {
         result.markModified("todos");
         result.save(function (saveerr, saveresult) {
           if (!saveerr) {
-            res.status(200).json({message: 'success', data: saveresult.todos});
+            res
+              .status(200)
+              .json({ message: "success", data: saveresult.todos });
           } else {
             res.status(400).send(saveerr.message);
           }
